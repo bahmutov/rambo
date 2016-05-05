@@ -23,7 +23,7 @@ console.log(solution.f([20, 30])) // [24, 34]
 ## Why?
 
 Because there are 200 functions in Ramda library, and I constantly have to look up
-[which function should I use](https://github.com/ramda/ramda/wiki/What-Function-Should-I-Use%3F).
+[which function I should use](https://github.com/ramda/ramda/wiki/What-Function-Should-I-Use%3F).
 Plus there is `ram-bot` in the [Ramda Gitter channel](https://gitter.im/ramda/ramda) that given
 input and Ramda code computes the output. I wanted to find Ramda code that computes the answer!
 

@@ -6,6 +6,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const same = require('./same')
 
+/* global describe, it */
 describe('R.is(Number)', () => {
   describe('single level, multiple inputs', () => {
     const examples = [

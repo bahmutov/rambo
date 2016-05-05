@@ -6,6 +6,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const same = require('./same')
 
+/* global describe, it */
 describe.skip('lobot', () => {
   it('is a function', () => {
     la(is.fn(lobot))
