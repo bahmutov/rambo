@@ -20,6 +20,43 @@ console.log(solution.f([1, 2, 3, 4])) // [5, 6, 7, 8]
 console.log(solution.f([20, 30])) // [24, 34]
 ```
 
+## Why?
+
+Because there are 200 functions in Ramda library, and I constantly have to look up
+[which function should I use](https://github.com/ramda/ramda/wiki/What-Function-Should-I-Use%3F).
+Plus there is `ram-bot` in the [Ramda Gitter channel](https://gitter.im/ramda/ramda) that given
+input and Ramda code computes the output. I wanted to find Ramda code that computes the answer!
+
+```
+// ram-bot
+Ramda code (inputs) ===> ?
+// Rambo
+Ramda ? (inputs) ===> outputs
+```
+
+## How?
+
+The solver is **very simple** and just brute forces the solution by iterating over a bunch of
+functions. Since Ramda is sooooo good at currying, we can combine multiple functions by 
+providing *derived* functions as inputs to other functions, like `R.map` for example, as first
+arguments. I also use the *data* to guide the solution tries. For example, `R.has(...)` tries
+every string from the input and output as a property name.
+
+```js
+const solve = require('rambo').solve
+const input = [{foo: 'bar'}, {name: 'alice'}, {name: 'bob'}, {foo: 42}]
+const output = [{name: 'alice'}, {name: 'bob'}]
+solve(input, output)
+// tries R.map(R.has('foo'))
+// tries R.map(R.has('name'))
+// tries R.map(R.has('bar'))
+// tries R.map(R.has('alice'))
+// ...
+```
+
+Hope others can contribute to this effort, since I know nothing about symbolic computation and
+automatic solvers. Rambo is my attempt at brute forcing a problem with a small solution set.
+
 [![NPM][npm-icon] ][npm-url]
 
 [![Build status][ci-image] ][ci-url]
