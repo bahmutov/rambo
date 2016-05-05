@@ -28,9 +28,11 @@ function solve (examples) {
   // console.log(examples)
   }
 
-  // const allSimpleDerivedFunctions = simpleFunctions.reduce((prev, f) => {
-  //   return prev.concat(derivedFunctions(examples, f))
-  // }, [])
+  var allSimpleDerivedFunctions = []
+
+  allSimpleDerivedFunctions = simpleFunctions.reduce((prev, f) => {
+    return prev.concat(derivedFunctions(examples, f, allSimpleDerivedFunctions))
+  }, [])
 
   var found
   // try to apply just a function
@@ -47,7 +49,7 @@ function solve (examples) {
 
   // try derived functions
   fns.some((fn) => {
-    const derived = derivedFunctions(examples, fn)
+    const derived = derivedFunctions(examples, fn, allSimpleDerivedFunctions)
     la(is.array(derived),
       'could not get list of derived functions from', fn, 'got', derived)
 

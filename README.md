@@ -20,6 +20,17 @@ console.log(solution.f([1, 2, 3, 4])) // [5, 6, 7, 8]
 console.log(solution.f([20, 30])) // [24, 34]
 ```
 
+## Produce example
+
+Some cases do not have any inputs. For example, what Ramda command produces `[50, 51, 52]`?
+
+```js
+const produce = require('rambo').produce
+const solution = produce([50, 51, 52])
+console.log(solution.name) // "R.range(50, 53)"
+console.log(solution.f()) // [50, 51, 52]
+```
+
 ## Why?
 
 Because there are 200 functions in Ramda library, and I constantly have to look up
@@ -56,6 +67,18 @@ solve(input, output)
 
 Hope others can contribute to this effort, since I know nothing about symbolic computation and
 automatic solvers. Rambo is my attempt at brute forcing a problem with a small solution set.
+
+## Details
+
+You can provide multiple input / output pairs
+
+```js
+const solution = solve([
+  [input1, output1],
+  [input2, output3],
+  ...
+])
+```
 
 [![NPM][npm-icon] ][npm-url]
 

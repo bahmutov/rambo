@@ -10,7 +10,7 @@ const isPair = require('./is-pair')
 const halfN = 10
 const firstValues = R.range(0, halfN * 2).map((x) => x - halfN)
 
-function deriveFunctions (examples, f) {
+function deriveFunctions (examples, f, allSimpleDerivedFunctions) {
   la(is.array(examples), 'missing examples', examples)
   la(isNamed(f), 'not a named function', f)
   la(is.fn(f.f), 'expected function to derive', f)
@@ -31,13 +31,13 @@ function deriveFunctions (examples, f) {
   }
   if (f.f === R.map || f.f === R.filter) {
     // TODO replace with compose
-    // return allSimpleDerivedFunctions.map((df) => {
-    //   la(isNamed(df), 'not a named function', df)
-    //   return {
-    //     f: f.f(df.f),
-    //     name: `${f.name}(${df.name})`
-    //   }
-    // })
+    return allSimpleDerivedFunctions.map((df) => {
+      la(isNamed(df), 'not a named function', df)
+      return {
+        f: f.f(df.f),
+        name: `${f.name}(${df.name})`
+      }
+    })
   }
 
   if (f.f === R.add || f.f === R.subtract || f.f === R.gt) {

@@ -14,6 +14,15 @@ function test (input, output, fn) {
   }
 }
 
+function testProduces (output, fn) {
+  try {
+    const o = fn()
+    return _.isEqual(o, output)
+  } catch (err) {
+    return false
+  }
+}
+
 function testApply (input, output, fn) {
   if (is.not.array(input)) {
     return false
@@ -45,5 +54,6 @@ function testExamples (tester, examples, fn) {
 module.exports = {
   test: test,
   testApply: testApply,
-  testExamples: testExamples
+  testExamples: testExamples,
+  testProduces: testProduces
 }
