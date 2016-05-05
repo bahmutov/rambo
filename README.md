@@ -75,10 +75,13 @@ You can provide multiple input / output pairs
 ```js
 const solution = solve([
   [input1, output1],
-  [input2, output3],
+  [input2, output2],
   ...
 ])
 ```
+
+This is useful because sometimes there might be multiple solutions for a single input / output
+pair.
 
 [![NPM][npm-icon] ][npm-url]
 
