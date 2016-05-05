@@ -1,0 +1,70 @@
+{
+  "name": "rambo",
+  "description": "Automatic Ramda solution bot",
+  "version": "1.0.0",
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "bugs": "https://github.com/bahmutov/rambo/issues",
+  "config": {
+    "pre-git": {
+      "commit-msg": "simple",
+      "pre-commit": [
+        "npm run deps",
+        "npm test",
+        "npm run ban"
+      ],
+      "pre-push": [
+        "npm run secure",
+        "npm run license",
+        "npm run ban -- --all",
+        "npm run size"
+      ],
+      "post-commit": [],
+      "post-merge": []
+    }
+  },
+  "files": [
+    "src/*.js"
+  ],
+  "engines": {
+    "nodejs": ">=6"
+  },
+  "homepage": "https://github.com/bahmutov/rambo#readme",
+  "keywords": [
+    "bot",
+    "fp",
+    "functional",
+    "ramda",
+    "solution",
+    "solver"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahmutov/rambo.git"
+  },
+  "scripts": {
+    "ban": "ban",
+    "deps": "deps-ok",
+    "format": "standard-format -w src/*.js",
+    "issues": "git-issues",
+    "license": "license-checker --production --onlyunknown --csv",
+    "lint": "standard --verbose src/*.js",
+    "pretest": "npm run format && npm run lint",
+    "secure": "nsp check",
+    "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
+    "test": "npm run unit",
+    "unit": "mocha tests/*-spec.js"
+  },
+  "devDependencies": {
+    "ban-sensitive-files": "1.8.2",
+    "deps-ok": "1.1.0",
+    "git-issues": "1.2.0",
+    "license-checker": "5.1.2",
+    "mocha": "2.4.5",
+    "nsp": "2.4.0",
+    "pre-git": "3.8.3",
+    "standard": "7.0.1",
+    "standard-format": "2.1.1"
+  }
+}
