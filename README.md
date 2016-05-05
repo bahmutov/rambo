@@ -1,6 +1,24 @@
-# rambo
+# Rambo
 
 > Automatic Ramda solution bot
+
+![rambo](rambo.jpg)
+
+Given inputs and outputs brute forces a Ramda solution.
+
+## Example
+
+What Ramda solution given `[1, 2, 3, 4]` returns `[5, 6, 7, 8]`?
+
+```js
+const solve = require('rambo').solve
+const solution = solve([1, 2, 3, 4], [5, 6, 7, 8])
+console.log(solution.name) // "R.map(R.add(4))"
+// has "f" property with solution function
+console.log(solution.f([1, 2, 3, 4])) // [5, 6, 7, 8]
+// can apply to other inputs
+console.log(solution.f([20, 30])) // [24, 34]
+```
 
 [![NPM][npm-icon] ][npm-url]
 
