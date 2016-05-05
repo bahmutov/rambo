@@ -26,21 +26,57 @@ describe('R.gt', () => {
     ]
     const solution = solve(examples)
 
+    it('array concat with empty first array', () => {
+      const first = []
+      const second = [42, 43]
+      const result = first.concat(second)
+      same(result, second)
+    })
+
+    examples.forEach((example, k) => {
+      it(`has valid example ${k}`, () => {
+        const i = example[0]
+        const expected = example[1]
+        la(R.gt(i[0])(i[1]) === expected)
+      })
+
+      it(`works with both arguments ${k}`, () => {
+        const i = example[0]
+        const expected = example[1]
+        la(R.gt(i[0], i[1]) === expected)
+      })
+    })
+
     it('finds solution from the examples', () => {
-      la(is.fn(solution.f))
+      la(solution, 'returned a solution')
+      la(is.fn(solution.f), 'has solution function')
+    })
+
+    it('has spread flag', () => {
+      la(solution.spread, solution)
     })
 
     it('works on example', () => {
       // TODO even if examples are a spread, we probably want to
       // get back the original function
-      const o = solution.f(3, 1)
+      const o = solution.f([3, 1])
       same(o, true, o)
     })
 
-    it('works on control', () => {
-      same(solution.f(10, 6), true, solution.f(10, 6))
-      same(solution.f(6, 10), false, solution.f(6, 10))
-      same(solution.f(6, 6), false, solution.f(6, 6))
+    // control examples
+    const controls = [
+      [[10, 6], true],
+      [[6, 10], false],
+      [[6, 6], false]
+    ]
+
+    controls.forEach((control, k) => {
+      it(`passes control ${k}`, () => {
+        const i = control[0]
+        const expected = control[1]
+        la(R.gt(i[0])(i[1]) === expected, 'R.gt()', control)
+        la(solution.f(i) === expected, 'solution', control)
+      })
     })
   })
 

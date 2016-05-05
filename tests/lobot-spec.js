@@ -6,7 +6,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const same = require('./same')
 
-describe('lobot', () => {
+describe.skip('lobot', () => {
   it('is a function', () => {
     la(is.fn(lobot))
   })
@@ -25,7 +25,7 @@ describe('lobot', () => {
   })
 })
 
-describe('add multiple inputs', () => {
+describe.skip('add multiple inputs', () => {
   const examples = [[1, 2], [5, 6]]
   const solution = lobot(examples)
 
@@ -73,7 +73,7 @@ describe.skip('get', () => {
   })
 })
 
-describe('uniq', () => {
+describe.skip('uniq', () => {
   const input = [2, 1, 2]
   const output = [2, 1]
   const solution = lobot(input, output)
@@ -94,7 +94,7 @@ describe('uniq', () => {
   })
 })
 
-describe('zipObject', () => {
+describe.skip('zipObject', () => {
   const input = [['a', 'b'], [1, 2]]
   const output = { 'a': 1, 'b': 2 }
   const solution = lobot(input, output)
@@ -139,7 +139,7 @@ describe.skip('add', () => {
   })
 })
 
-describe('castArray', () => {
+describe.skip('castArray', () => {
   const input = 1
   const output = [1]
   const solution = lobot(input, output)

@@ -5,6 +5,8 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const {test, testApply, testExamples} = require('./check-solution')
 const isNamed = require('./is-named')
+const grab = require('./grab')
+const isPair = require('./is-pair')
 
 /*eslint-disable no-eval*/
 
@@ -30,28 +32,20 @@ function lookupR (name) {
 // const fns = [_.zipObject]
 // console.log('_.zipObject arity', _.zipObject.length)
 const simpleFunctions = [
-  'R.is', 'R.add', 'R.subtract', 'R.gt', 'R.flatten', 'R.fromPairs', 'R.has',
+  'R.is',
+  'R.add', 'R.subtract',
+  'R.gt',
+  'R.flatten', 'R.fromPairs', 'R.has',
   'R.split', 'R.tail', 'R.append'
 ].map(lookupR)
-const iteratorFunctions = ['R.map', 'R.filter'].map(lookupR)
+const iterators = [
+  'R.map', 'R.filter'
+]
+const iteratorFunctions = iterators.map(lookupR)
 
 const fns = simpleFunctions.concat(iteratorFunctions)
-const firstValues = R.range(0, 100).map((x) => x - 50)
-
-function grabEverything (things) {
-  return R.uniq(R.flatten(things))
-}
-
-function grabProperties (things) {
-  const objects = R.filter(R.is(Object), R.flatten(things))
-  const keys = R.uniq(R.flatten(R.map(R.keys, objects)))
-  return keys
-}
-
-function grabStrings (things) {
-  const strings = R.flatten(R.filter(R.is(String), R.flatten(things)))
-  return strings
-}
+const halfN = 10
+const firstValues = R.range(0, halfN * 2).map((x) => x - halfN)
 
 function solve (examples) {
   if (arguments.length === 2) {
@@ -91,16 +85,36 @@ function solve (examples) {
     }
 
     if (f.f === R.add || f.f === R.subtract || f.f === R.gt) {
-      return firstValues.map((x) => {
+      // binary functions
+      const outsideData = firstValues.map((x) => {
         return {
           f: f.f(x),
           name: `${f.name}(${x})`
         }
       })
+
+      const asSpread = [{
+        f: R.apply(f.f),
+        name: `R.apply(${f.name})`,
+        spread: true
+      }]
+
+      const pairs = grab.numberPairs(examples)
+      const guessesFromData = pairs.map((x) => {
+        la(isPair(x), 'invalid number pair', x)
+        // since we have both arguments for binary function, it evaluates
+        // right away, thus create dummy function around it
+        return {
+          f: R.always(f.f(x[0], x[1])),
+          name: `${f.name}(${x[0]}, ${x[1]})`
+        }
+      })
+      return asSpread.concat(guessesFromData).concat(outsideData)
+    // return guessesFromData
     }
 
     if (f.f === R.has) {
-      const propertyNames = grabProperties(examples)
+      const propertyNames = grab.properties(examples)
       la(is.array(propertyNames), 'could not grab property names from', examples)
       return propertyNames.map((property) => {
         return {
@@ -111,7 +125,7 @@ function solve (examples) {
     }
 
     if (f.f === R.append) {
-      const allValues = grabEverything(examples)
+      const allValues = grab.everything(examples)
       la(is.array(allValues), 'could not grab values from', examples)
       return allValues.map((value) => {
         const s = is.string(value) ? `'${value}'` : value
@@ -123,7 +137,7 @@ function solve (examples) {
     }
 
     if (f.f === R.split) {
-      const strings = grabStrings(examples)
+      const strings = grab.strings(examples)
 
       la(is.array(strings), 'expected list of strings from', examples, strings)
       const characters = R.uniq(strings.join('').split(''))
@@ -181,6 +195,8 @@ function solve (examples) {
 
   // maybe applying inputs as separate arguments works
   fns.some((fn) => {
+    la(isNamed(fn), 'invalid named for spread', fn)
+    // console.log('testing spread over', fn.name)
     if (testExamples(testApply, examples, fn)) {
       // found = R.spread(fn)
       found = fn
