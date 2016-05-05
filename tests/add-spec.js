@@ -5,7 +5,7 @@ const rabot = require('..').solve
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const same = require('./same')
-const isNamed = require('../is-named')
+const isNamed = require('../src/is-named')
 
 describe.only('R.add(1)', () => {
   describe('adds multiple inputs', () => {

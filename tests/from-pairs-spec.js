@@ -5,7 +5,7 @@ const solve = require('..').solve
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const same = require('./same')
-const isNamed = require('../is-named')
+const isNamed = require('../src/is-named')
 
 describe('R.fromPairs', () => {
   const input = [['a', 1], ['b', 2],  ['c', 3]]

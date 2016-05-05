@@ -66,5 +66,11 @@
     "pre-git": "3.8.3",
     "standard": "7.0.1",
     "standard-format": "2.1.1"
+  },
+  "dependencies": {
+    "check-more-types": "2.20.2",
+    "lazy-ass": "1.4.0",
+    "lodash": "4.11.2",
+    "ramda": "0.21.0"
   }
 }

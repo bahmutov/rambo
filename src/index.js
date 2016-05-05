@@ -6,6 +6,8 @@ const is = require('check-more-types')
 const {test, testApply, testExamples} = require('./check-solution')
 const isNamed = require('./is-named')
 
+/*eslint-disable no-eval*/
+
 // maybe we can just keep passing around expressions instead of forming functions?
 function lookupR (name) {
   la(is.unemptyString(name), 'missing ramda function', name)
