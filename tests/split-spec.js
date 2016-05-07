@@ -1,6 +1,5 @@
 'use strict'
 
-const R = require('ramda')
 const solve = require('..').solve
 const la = require('lazy-ass')
 const is = require('check-more-types')

@@ -3,8 +3,9 @@
 const la = require('lazy-ass')
 const is = require('check-more-types')
 
+/* global describe, it */
 describe('solution text', () => {
-  function add(a, b) {
+  function add (a, b) {
     return a + b
   }
 

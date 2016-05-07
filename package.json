@@ -23,7 +23,8 @@
     }
   },
   "files": [
-    "src/*.js"
+    "src/*.js",
+    "!src/*-spec.js"
   ],
   "engines": {
     "nodejs": ">=6"
@@ -54,7 +55,7 @@
     "secure": "nsp check",
     "size": "t=\"$(npm pack .)\"; wc -c \"${t}\"; tar tvf \"${t}\"; rm \"${t}\";",
     "test": "npm run unit",
-    "unit": "mocha tests/*-spec.js",
+    "unit": "mocha src/*-spec.js tests/*-spec.js",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {

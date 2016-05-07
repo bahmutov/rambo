@@ -7,6 +7,7 @@ const is = require('check-more-types')
 const same = require('./same')
 const isNamed = require('../src/is-named')
 
+/* global describe, it */
 describe('R.add(1)', () => {
   describe('adds multiple inputs', () => {
     const examples = [[1, 2], [5, 6]]

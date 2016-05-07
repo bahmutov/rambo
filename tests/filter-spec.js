@@ -6,7 +6,7 @@ const is = require('check-more-types')
 const same = require('./same')
 
 /* global describe, it */
-describe.only('R.filter', () => {
+describe('R.filter', () => {
   describe('R.filter(R.is(Number))', () => {
     const solution = solve([1, 2, 'foo', 'bar', -10], [1, 2, -10])
 

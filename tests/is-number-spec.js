@@ -1,43 +1,53 @@
 'use strict'
 
 const R = require('ramda')
-const lobot = require('..').solve
+const solve = require('..').solve
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const same = require('./same')
 
+/* global describe, it */
 describe('R.is(Number)', () => {
   describe('single level, multiple inputs', () => {
-    const examples = [[1, true], [5, true], ['foo', false]]
-    const solution = lobot(examples)
+    const examples = [
+      [1, true],
+      [5, true],
+      ['foo', false]
+    ]
+    const solution = solve(examples)
 
     it('finds solution from the examples', () => {
-      la(is.fn(solution), 'found solution function')
+      la(is.fn(solution.f), 'found solution function')
+    })
+
+    it('has correct name', () => {
+      la(solution.name, solution)
+      la(solution.name === 'R.is(Number)', solution)
     })
 
     it('works on other numbers', () => {
-      la(solution(42) === true, solution(42))
-      la(solution(-1) === true, solution(-1))
-      la(solution(11) === true, solution(11))
+      la(solution.f(42) === true, 42, solution.f(42))
+      la(solution.f(-1) === true, -1, solution.f(-1))
+      la(solution.f(11) === true, 11, solution.f(11))
     })
 
     it('works on null', () => {
-      la(solution(null) === false, solution(null))
+      la(solution.f(null) === false, solution.f(null))
     })
   })
 
   describe('single level, multiple inputs for String', () => {
     const examples = [[1, false], [5, false], ['foo', true]]
-    const solution = lobot(examples)
+    const solution = solve(examples)
 
     it('finds solution from the examples', () => {
-      la(is.fn(solution), 'found solution function')
+      la(is.fn(solution.f), 'found solution function')
     })
 
     it('works on other numbers', () => {
-      la(solution(42) === false, solution(42))
-      la(solution(-1) === false, solution(-1))
-      la(solution('11') === true, solution('11'))
+      la(solution.f(42) === false, solution.f(42))
+      la(solution.f(-1) === false, solution.f(-1))
+      la(solution.f('11') === true, solution.f('11'))
     })
   })
 
@@ -53,15 +63,15 @@ describe('R.is(Number)', () => {
     })
 
     it('finds map with right solution', () => {
-      const solution = lobot(input, output)
-      la(is.fn(solution))
+      const solution = solve(input, output)
+      la(is.fn(solution.f))
     })
 
     it('works', () => {
       const i = [4, 10, null]
       const expected = [true, true, false]
-      const solution = lobot(input, output)
-      const computed = solution(i)
+      const solution = solve(input, output)
+      const computed = solution.f(i)
       same(computed, expected, 'computed', computed)
     })
   })
@@ -71,15 +81,15 @@ describe('R.is(Number)', () => {
     const output = [false, false, true, false]
 
     it('finds map with right solution', () => {
-      const solution = lobot(input, output)
-      la(is.fn(solution))
+      const solution = solve(input, output)
+      la(is.fn(solution.f))
     })
 
     it('works', () => {
       const i = [4, 10, null, 'foo', 'f']
       const expected = [false, false, false, true, true]
-      const solution = lobot(input, output)
-      const computed = solution(i)
+      const solution = solve(input, output)
+      const computed = solution.f(i)
       same(computed, expected, 'computed', computed)
     })
   })
