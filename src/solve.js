@@ -2,7 +2,7 @@
 
 const la = require('lazy-ass')
 const is = require('check-more-types')
-const {test, testApply, testExamples} = require('./check-solution')
+const check = require('./check-solution')
 const isNamed = require('./is-named')
 const lookupR = require('./lookup-ramda-function')
 const derivedFunctions = require('./derive-functions')
@@ -38,7 +38,7 @@ function solve (examples) {
   // try to apply just a function
   fns.some((fn) => {
     la(isNamed(fn), fn)
-    if (testExamples(test, examples, fn.f)) {
+    if (check.testExamples(check.test, examples, fn.f)) {
       found = fn
       return true
     }
@@ -60,7 +60,7 @@ function solve (examples) {
       la(isNamed(fder), 'invalid derived function', fder, 'from', fn)
       // console.log(fder.name, examples[0][0], fder.f(examples[0][1]))
       // console.log('trying', fder.name)
-      if (testExamples(test, examples, fder.f)) {
+      if (check.testExamples(check.test, examples, fder.f)) {
         found = fder
         return true
       }
@@ -74,7 +74,7 @@ function solve (examples) {
   fns.some((fn) => {
     la(isNamed(fn), 'invalid named for spread', fn)
     // console.log('testing spread over', fn.name)
-    if (testExamples(testApply, examples, fn)) {
+    if (check.testExamples(check.testApply, examples, fn)) {
       // found = R.spread(fn)
       found = fn
       // console.log('fn', fn.name)

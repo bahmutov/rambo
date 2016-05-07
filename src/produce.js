@@ -4,7 +4,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const lookupR = require('./lookup-ramda-function')
 const isNamed = require('./is-named')
-const {testProduces} = require('./check-solution')
+const testProduces = require('./check-solution').testProduces
 const R = require('ramda')
 
 const simpleFunctions = [
