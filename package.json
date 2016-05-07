@@ -58,21 +58,33 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
+    "@semantic-release/condition-travis": "4.1.4",
     "ban-sensitive-files": "1.8.2",
+    "condition-node-version": "1.3.0",
     "deps-ok": "1.1.0",
     "git-issues": "1.2.0",
     "license-checker": "5.1.2",
     "mocha": "2.4.5",
     "nsp": "2.4.0",
     "pre-git": "3.8.3",
+    "semantic-release": "^4.3.5",
     "standard": "7.0.1",
-    "standard-format": "2.1.1",
-    "semantic-release": "^4.3.5"
+    "standard-format": "2.1.1"
   },
   "dependencies": {
     "check-more-types": "2.20.2",
     "lazy-ass": "1.4.0",
     "lodash": "4.11.2",
     "ramda": "0.21.0"
+  },
+  "release": {
+    "verifyConditions": [
+      {
+        "path": "@semantic-release/condition-travis"
+      }, {
+        "path": "condition-node-version",
+        "node": "6"
+      }
+    ]
   }
 }
