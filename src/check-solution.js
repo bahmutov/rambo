@@ -1,6 +1,6 @@
 'use strict'
 
-const _ = require('lodash/fp')
+const R = require('ramda')
 const la = require('lazy-ass')
 const is = require('check-more-types')
 
@@ -8,7 +8,7 @@ function test (input, output, fn) {
   try {
     const o = fn(input)
     // console.log('comparing', o, 'with expected', output)
-    return _.isEqual(o, output)
+    return R.equals(o, output)
   } catch (err) {
     return false
   }
@@ -17,7 +17,7 @@ function test (input, output, fn) {
 function testProduces (output, fn) {
   try {
     const o = fn()
-    return _.isEqual(o, output)
+    return R.equals(o, output)
   } catch (err) {
     return false
   }
@@ -31,7 +31,7 @@ function testApply (input, output, fn) {
   try {
     const o = fn.apply(null, input)
     // console.log('comparing', o, 'with expected', output)
-    return _.isEqual(o, output)
+    return R.equals(o, output)
   } catch (err) {
     return false
   }

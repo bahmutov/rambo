@@ -75,7 +75,6 @@
   "dependencies": {
     "check-more-types": "2.20.2",
     "lazy-ass": "1.4.0",
-    "lodash": "4.11.2",
     "ramda": "0.21.0"
   },
   "release": {

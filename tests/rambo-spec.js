@@ -1,6 +1,6 @@
 'use strict'
 
-const _ = require('lodash/fp')
+const R = require('ramda')
 const lobot = require('..').solve
 const la = require('lazy-ass')
 const is = require('check-more-types')
@@ -12,15 +12,15 @@ describe.skip('lobot', () => {
     la(is.fn(lobot))
   })
 
-  it('_.subtract is curried in lodash/fp', () => {
-    const sub5 = _.subtract(5)
+  it('_.subtract is curried', () => {
+    const sub5 = R.subtract(5)
     la(is.fn(sub5))
     const result = sub5(6)
     la(result === -1, result)
   })
 
-  it('_.add is curried in lodash/fp', () => {
-    const add5 = _.add(5)
+  it('_.add is curried', () => {
+    const add5 = R.add(5)
     la(is.fn(add5))
     la(add5(6) === 11)
   })
@@ -42,7 +42,7 @@ describe.skip('add multiple inputs', () => {
     const i = 10
     const o = 11
     const computed = solution(i)
-    la(_.isEqual(computed, o), computed)
+    la(R.equals(computed, o), computed)
   })
 })
 
@@ -80,9 +80,9 @@ describe.skip('uniq', () => {
   const solution = lobot(input, output)
 
   it('works', () => {
-    const o = _.uniq(input)
+    const o = R.uniq(input)
     // console.log('o', o)
-    la(_.isEqual(o, output))
+    la(R.equals(o, output))
   })
 
   it('finds solution from the examples', () => {
@@ -91,7 +91,7 @@ describe.skip('uniq', () => {
 
   it('works on example', () => {
     const o = solution(input)
-    la(_.isEqual(o, output), o)
+    la(R.equals(o, output), o)
   })
 })
 
@@ -101,8 +101,8 @@ describe.skip('zipObject', () => {
   const solution = lobot(input, output)
 
   it('works', () => {
-    const o = _.zipObject.apply(null, input)
-    la(_.isEqual(o, output))
+    const o = R.zipObject.apply(null, input)
+    la(R.equals(o, output))
   })
 
   it('finds solution from the examples', () => {
